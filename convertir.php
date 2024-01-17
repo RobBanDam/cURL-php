@@ -3,7 +3,7 @@
 if(isset($_POST['valor'])){
     $valor = floatval($_POST['valor']);
 
-    $apiURL = "https://v6.exchangerate-api.com/v6/f86192bd0e1f2cb13120576e/latest/USD";
+    $apiURL = "https://v6.exchangerate-api.com/v6/f86192bd0e1f2cb13120576e/pair/USD/MXN/{$valor}";
 
     $iniciarCURL = curl_init($apiURL);
 
@@ -24,5 +24,10 @@ if(isset($_POST['valor'])){
     curl_close($iniciarCURL);
 
     $datos = json_decode($respuesta, true);
+    $valorUnitario = $datos['conversion_rate'];
+    $conversion = $datos['conversion_result'];
+
+    echo "<br> El Dólar equivale a {$valorUnitario}
+    <br> {$valor} USD equivalen a {$conversion} MXN.";
 }
 ?>
